@@ -1,0 +1,39 @@
+development:
+  database:
+    adapter: sqlite3
+    database: db/blog_domain.sqlite3
+    pool: 5
+    timeout: 5000
+  drb_server:
+    scheme: druby
+    host: 127.0.0.1
+    port: 8787
+  event_connection:
+    scheme: amqp
+    host: 127.0.0.1
+    port: 5672
+  event_exchange: blog_events
+
+test:
+  database:
+      adapter: sqlite3
+      database: db/blog_domain_test.sqlite3
+      pool: 5
+      timeout: 5000
+
+production:
+  database:
+    adapter: sqlite3
+    database: db/blog_domain.sqlite3
+    pool: 5
+    timeout: 5000
+  drb_server:
+    protocol: druby
+    host: 127.0.0.1
+    port: 8787
+  event_connection:
+    scheme: amqp
+    userinfo: amqp:password
+    host: 127.0.0.1
+    port: 9797
+  event_exchange: blog_events
