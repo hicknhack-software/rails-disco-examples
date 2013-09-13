@@ -16,13 +16,10 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create post" do
-    assert_difference('Post.count') do
-      post :create, post: { text: @post.text, title: @post.title }
-    end
-
-    assert_redirected_to post_path(assigns(:post))
-  end
+  #test "should create post" do
+  #  #removed for now, because there is no reason to test the post here, cause the projection creates it
+  #  #maybe we could test something else here instead
+  #end
 
   test "should show post" do
     get :show, id: @post
@@ -34,16 +31,13 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update post" do
-    patch :update, id: @post, post: { text: @post.text, title: @post.title }
-    assert_redirected_to post_path(assigns(:post))
-  end
+  #test "should update post" do
+  #  #removed for now, because there is no reason to test the update here, cause the projection updates it
+  #  #maybe we could test something else here instead
+  #end
 
-  test "should destroy post" do
-    assert_difference('Post.count', -1) do
-      delete :destroy, id: @post
-    end
-
-    assert_redirected_to posts_path
-  end
+  #test "should destroy post" do
+  #  #removed for now, because there is no reason to test the destroy here, cause the projection destroys it
+  #  #maybe we could test something else here instead
+  #end
 end

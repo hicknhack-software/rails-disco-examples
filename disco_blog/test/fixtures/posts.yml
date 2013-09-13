@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  title: Hello World
+  text: this is a test
+
+two:
+  id: 2
+  title: MyString
+  text: MyString
