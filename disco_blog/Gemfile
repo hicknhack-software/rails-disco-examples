@@ -44,4 +44,6 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "rails-disco"
+gem 'rails-disco'
+
+gem 'puma'
