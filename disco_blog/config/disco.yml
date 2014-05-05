@@ -20,6 +20,11 @@ test:
     database: db/test_domain.sqlite3
     pool: 5
     timeout: 5000
+  event_connection:
+    scheme: amqp
+    host: 127.0.0.1
+    port: 5672
+  event_exchange: events
 
 production:
   domain_database:
