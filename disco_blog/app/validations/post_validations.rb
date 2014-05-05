@@ -2,8 +2,8 @@ module PostValidations
   extend ActiveSupport::Concern
   include ActiveEvent::Validations
 
-  validation_target :'PostCreateCommand'
-  validation_target :'PostUpdateCommand'
+  validation_target :'CreatePostCommand'
+  validation_target :'UpdatePostCommand'
 
   included do
     validates :title, {

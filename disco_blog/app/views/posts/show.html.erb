@@ -1,4 +1,4 @@
-<%= javascript_tag render partial: 'eventstream', formats: [:js], locals: {event_id: @event_id} %>
+<%= event_source('PostProjection') %>
 <p id="notice"><%= notice %></p>
 
 <p>

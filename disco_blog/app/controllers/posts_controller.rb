@@ -1,65 +1,56 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit]
-  before_action :set_event_id, only: [:index, :show]
+  include EventSource
 
   def index
     @posts = Post.all
   end
 
   def show
+    @post = Post.find(id_param)
   end
 
   def new
-    @post = Post.new
+    @post = CreatePostCommand.new
   end
 
   def edit
+    @post = UpdatePostCommand.new Post.find(id_param).attributes
   end
 
   def create
-    post = PostCreateCommand.new({title: params[:post][:title], text: params[:post][:text]})
-    valid = post.valid?
-    if valid && id = Domain.run_command(post)
-      flash[:notice] = 'Post was successfully created.'
-      session[:tmp_event_id] = id
-      redirect_to action: :index
+    @post = CreatePostCommand.new post_params
+    if store_event_id Domain.run_command(@post)
+      redirect_to @post, notice: 'Post was successfully created.'
     else
-      flash[:error] = 'Post couldn\'t be created.'
-      redirect_to action: :new
+      render action: 'new'
     end
   end
 
   def update
-    post = PostUpdateCommand.new({id: params[:id], title: params[:post][:title], text: params[:post][:text]})
-    valid = post.valid?
-    if valid && id = Domain.run_command(post)
-      flash[:notice] = 'Post was successfully updated.'
-      session[:tmp_event_id] = id
-      redirect_to action: :show, id: params[:id]
+    @post = UpdatePostCommand.new post_params.merge(id: id_param)
+    if store_event_id Domain.run_command(@post)
+      redirect_to @post, notice: 'Post was successfully updated.'
     else
-      flash[:error] = 'Post couldn\'t be updated.'
-      redirect_to action: :edit, id: params[:id]
+      render action: 'edit'
     end
   end
 
   def destroy
-    post = PostDeleteCommand.new({id: params[:id]})
-    if id = Domain.run_command(post)
-      session[:tmp_event_id] = id
-      flash[:notice] = 'Post was successfully deleted.'
+    delete_post = DeletePostCommand.new(id: id_param)
+    if store_event_id Domain.run_command(delete_post)
+      redirect_to posts_url, notice: 'Post was successfully destroyed.'
     else
-      flash[:error] = 'Post couldn\'t be deleted.'
+      redirect_to post_url(id: id_param), alert: 'Post could not be deleted.'
     end
-    redirect_to action: :index
   end
 
   private
-  def set_post
-    @post = Post.find(params[:id])
+
+  def post_params
+    params.require(:post).permit(:title, :text)
   end
 
-  def set_event_id
-    @event_id = session[:tmp_event_id]
-    session[:tmp_event_id] = nil
+  def id_param
+    params.require(:id).to_i
   end
 end

@@ -1,18 +1,24 @@
 module Domain
   class PostProcessor
     include ActiveDomain::CommandProcessor
-
-    process PostDeleteCommand do |command|
-      command.is_valid_do { event PostDeleteEvent.new command.to_hash }
+    process DeletePostCommand do |command|
+      command.is_valid_do do
+        event DeletedPostEvent.new command.to_hash
+      end
     end
 
-    process PostUpdateCommand do |command|
-      command.is_valid_do { event PostUpdateEvent.new command.to_hash }
+    process UpdatePostCommand do |command|
+      command.is_valid_do do
+        event UpdatedPostEvent.new command.to_hash
+      end
     end
 
-    process PostCreateCommand do |command|
-      command.id = ActiveDomain::UniqueCommandIdRepository.new_for command.class.name
-      command.is_valid_do { event PostCreateEvent.new command.to_hash }
+    process CreatePostCommand do |command|
+      command.is_valid_do do
+        id = ActiveDomain::UniqueCommandIdRepository.new_for command.class.name
+        event CreatedPostEvent.new command.to_hash.merge(id: id)
+      end
     end
+
   end
 end
