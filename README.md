@@ -1,6 +1,6 @@
 # Examples for Rails Disco
 
-This is the place for examples of the rails disco project.
+This is the place for examples of the [Rails Disco](https://github.com/hicknhack-software/rails-disco) project.
 
 * disco_blog - a simple blog project
 
