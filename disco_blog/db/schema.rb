@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20130910070019) do
 
   create_table "projections", force: true do |t|
     t.string  "class_name"
-    t.integer "last_id"
-    t.boolean "solid"
+    t.integer "last_id",    default: 0
+    t.boolean "solid",      default: true
   end
 
   add_index "projections", ["class_name"], name: "index_projections_on_class_name"
