@@ -14,12 +14,15 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# gem 'rails-disco', '~> 0.5.2'
-gem 'active_event', path: 'D:/arB/projects/eventsource/rails-disco/active_event'
-gem 'active_projection', path: 'D:/arB/projects/eventsource/rails-disco/active_projection'
-gem 'active_domain', path: 'D:/arB/projects/eventsource/rails-disco/active_domain'
-gem 'disco-railties', path: 'D:/arB/projects/eventsource/rails-disco/disco-railties'
-gem 'rails-disco', path: 'D:/arB/projects/eventsource/rails-disco'
+
+# gem 'rails-disco', '~> 0.5.3'
+git 'https://github.com/hicknhack-software/rails-disco.git', branch: 'master' do
+  gem 'active_event'
+  gem 'active_projection'
+  gem 'active_domain'
+  gem 'disco-railties'
+  gem 'rails-disco'
+end
 
 # gem 'react-rails', '~> 1.0.0'
 gem 'sprockets-coffee-react'
